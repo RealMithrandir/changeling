@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - run: pip install -e .[dev]
+      - run: pip install -e ".[dev,demo,llm]"
 
       - run: mypy --strict changeling/
 

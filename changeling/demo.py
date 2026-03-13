@@ -229,7 +229,7 @@ def main() -> None:
     inner = Starlette(routes=demo_routes)
     app = Changeling(inner, orrery=True, db_path=db_path)
 
-    uvicorn.run(app, host="127.0.0.1", port=args.port)  # type: ignore[arg-type]
+    uvicorn.run(app, host="127.0.0.1", port=args.port)
 
 
 if __name__ == "__main__":

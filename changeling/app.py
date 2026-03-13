@@ -23,4 +23,4 @@ for route in demo_routes:
     app.routes.append(route)
 
 # Add Changeling middleware (must be after route mounting)
-app.add_middleware(Changeling, orrery=True)  # type: ignore[arg-type]
+app.add_middleware(Changeling, orrery=True)

@@ -111,7 +111,7 @@ async def mutate_string_llm(
             max_tokens=100,
             temperature=0.7,
         )
-        result: str = response.choices[0].message.content.strip()  # type: ignore[union-attr]
+        result: str = response.choices[0].message.content.strip()
         return result
     except Exception:
         log.warning("weaving.llm_failed", key=key, exc_info=True)

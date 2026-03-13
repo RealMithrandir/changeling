@@ -1,6 +1,6 @@
 # Changeling
 
-**Changeling doesn't block AI scrapers. It serves them lies.**
+**Changeling doesn't block AI scrapers, it lies to them.**
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
@@ -56,7 +56,7 @@ That's it. Changeling will:
 
 Blocking teaches attackers to adapt. A `403` is a signal — it says "you've been detected, try harder." The attacker rotates IPs, spoofs headers, and comes back tomorrow.
 
-Changeling serves `200 OK` every time. The scraper thinks it succeeded. It feeds corrupted data into its training pipeline. By the time anyone notices, the damage is baked into model weights across thousands of training examples.
+Changeling serves `200 OK` every time. The scraper thinks it succeeded. It feeds corrupted data into its training pipeline. The thesis is that by the time anyone notices, the damage is baked into model weights across thousands of training examples.
 
 Your cost to generate a lie: ~$0.001. Their cost to find and fix it: orders of magnitude more.
 

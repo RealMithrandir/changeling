@@ -76,7 +76,9 @@ app = Changeling(
 
 ### Grimoire (mutation rules)
 
-Create a `config/grimoire.toml` to customize mutation behavior, or rely on the built-in defaults:
+Create a `config/grimoire.toml` to customize mutation behavior, or rely on the built-in defaults.
+
+Any `[mutations.*]` rule supports `enabled = true|false` (defaults to `true`). Set `enabled = false` to disable a specific mutation type without removing the rule — useful for temporarily turning off HTML mutation while keeping JSON mutations active:
 
 ```toml
 [mutations.price_fields]
@@ -104,6 +106,7 @@ action = "pass"
 [mutations.html_content]
 type = "html"
 strategy = "substitute"  # "shuffle" | "substitute"
+enabled = true           # set to false to disable HTML mutation
 
 [correlations.price_total]
 source = "price"

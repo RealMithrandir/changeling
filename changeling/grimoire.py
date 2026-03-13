@@ -25,6 +25,7 @@ _DEFAULT_RAW: dict[str, Any] = {
             "type": "numeric",
             "variance": 0.12,
             "distribution": "uniform",
+            "enabled": True,
             "fields": ["price", "cost", "amount", "total", "subtotal", "fee"],
         },
         "stat_fields": {
@@ -34,17 +35,20 @@ _DEFAULT_RAW: dict[str, Any] = {
             "preserve_sign": True,
             "clamp_min": 0.0,
             "clamp_max": 5.0,
+            "enabled": True,
             "fields": ["count", "rating", "score", "views", "downloads", "users"],
         },
         "date_fields": {
             "type": "date",
             "shift_days_min": -90,
             "shift_days_max": 90,
+            "enabled": True,
             "fields": ["date", "created_at", "updated_at", "published", "timestamp"],
         },
         "entity_names": {
             "type": "string",
             "strategy": "llm",
+            "enabled": True,
             "fields": ["name", "author", "company", "brand", "manufacturer"],
         },
     },
@@ -79,6 +83,7 @@ class MutationRule:
     strategy: str = "deterministic"
     clamp_min: float | None = None
     clamp_max: float | None = None
+    enabled: bool = True
 
 
 @dataclass
@@ -188,6 +193,7 @@ def _parse(raw: dict[str, Any]) -> Grimoire:
             strategy=data.get("strategy", "deterministic"),
             clamp_min=data.get("clamp_min"),
             clamp_max=data.get("clamp_max"),
+            enabled=data.get("enabled", True),
         )
         g.mutations[name] = rule
         for f in rule.fields:

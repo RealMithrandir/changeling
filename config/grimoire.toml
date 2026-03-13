@@ -29,6 +29,7 @@ fields = ["name", "author", "company", "brand", "manufacturer"]
 [mutations.html_content]
 type = "html"
 strategy = "substitute"  # "shuffle" | "substitute"
+enabled = true
 fields = []
 
 # Correlated field mutations — target fields scale by the same factor as source

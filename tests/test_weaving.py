@@ -229,6 +229,34 @@ async def test_correlation_deterministic() -> None:
     assert r1 == r2
 
 
+async def test_disabled_rule_passes_through() -> None:
+    """A field whose MutationRule has enabled=False should not be mutated."""
+    grimoire = Grimoire(
+        mutations={
+            "prices": MutationRule(
+                type="numeric",
+                fields=["price"],
+                variance=0.12,
+                enabled=False,
+            ),
+        },
+        field_index={
+            "price": MutationRule(
+                type="numeric",
+                fields=["price"],
+                variance=0.12,
+                enabled=False,
+            ),
+        },
+    )
+    data = {"price": 100.0, "other": "hello"}
+    raw = json.dumps(data)
+    result = await weave(raw, grimoire, "disabled-session")
+    parsed = json.loads(result)
+    assert parsed["price"] == 100.0
+    assert parsed["other"] == "hello"
+
+
 async def test_uncorrelated_fields_mutate_independently(grimoire) -> None:  # type: ignore[no-untyped-def]
     """Fields not in a correlation should mutate independently."""
     data = {"price": 100.0, "rating": 4.0}

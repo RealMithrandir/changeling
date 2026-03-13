@@ -210,8 +210,8 @@ async def _mutate_field(
     """Mutate a single field based on Grimoire rules."""
     rule = grimoire.rule_for_field(key)
 
-    if rule is None:
-        # No rule for this field — recurse if compound, else pass through
+    if rule is None or not rule.enabled:
+        # No rule or disabled rule for this field — recurse if compound, else pass through
         if isinstance(value, (dict, list)):
             return await _mutate_value(
                 value, grimoire, session_key, path, correlation_factors

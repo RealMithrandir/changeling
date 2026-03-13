@@ -265,14 +265,16 @@ class Changeling:
             log.info("weaving.served", session_id=session_id, ip=ip)
         elif "text/html" in ct and b"</body>" in full_body.lower():
             # Mutate HTML text content for hostile agents
-            session_key = f"{ip}:{ua}"
-            try:
-                mutated_html = await weave_html(
-                    full_body.decode("utf-8"), grimoire, session_key
-                )
-                full_body = mutated_html.encode("utf-8")
-            except Exception:
-                log.warning("html_weaving.failed", exc_info=True)
+            html_rule = grimoire.mutations.get("html_content")
+            if html_rule is None or html_rule.enabled:
+                session_key = f"{ip}:{ua}"
+                try:
+                    mutated_html = await weave_html(
+                        full_body.decode("utf-8"), grimoire, session_key
+                    )
+                    full_body = mutated_html.encode("utf-8")
+                except Exception:
+                    log.warning("html_weaving.failed", exc_info=True)
 
             # Inject multiple foxfire traps
             if self.inject_foxfire:

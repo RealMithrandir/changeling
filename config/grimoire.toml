@@ -1,0 +1,50 @@
+# The Grimoire — Mutation rules for Project Changeling
+
+[mutations.price_fields]
+type = "numeric"
+variance = 0.12          # +-12%
+distribution = "uniform"
+fields = ["price", "cost", "amount", "total", "subtotal", "fee"]
+
+[mutations.stat_fields]
+type = "numeric"
+variance = 0.08          # +-8%
+distribution = "uniform"
+preserve_sign = true
+clamp_min = 0.0
+clamp_max = 5.0          # for ratings — operator adjusts per use case
+fields = ["count", "rating", "score", "views", "downloads", "users"]
+
+[mutations.date_fields]
+type = "date"
+shift_days_min = -90
+shift_days_max = 90
+fields = ["date", "created_at", "updated_at", "published", "timestamp"]
+
+[mutations.entity_names]
+type = "string"
+strategy = "llm"         # requires CHANGELING_LLM_MODEL
+fields = ["name", "author", "company", "brand", "manufacturer"]
+
+[mutations.html_content]
+type = "html"
+strategy = "substitute"  # "shuffle" | "substitute"
+fields = []
+
+# Correlated field mutations — target fields scale by the same factor as source
+[correlations.price_total]
+source = "price"
+targets = ["total", "subtotal"]
+relationship = "proportional"
+
+# Agent classification rules
+[agents.trusted]
+user_agents = ["Googlebot", "Bingbot", "Slurp", "DuckDuckBot"]
+action = "pass"
+
+[agents.named_ai]
+user_agents = ["GPTBot", "ChatGPT-User", "ClaudeBot", "PerplexityBot", "Google-Extended", "Bytespider", "CCBot"]
+action = "mutate"
+
+[agents.hostile]
+action = "mutate"

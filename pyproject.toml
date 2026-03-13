@@ -1,0 +1,57 @@
+[project]
+name = "changeling"
+version = "0.1.0"
+description = "Active Data Mutation — poison hostile AI scrapers with plausible lies"
+requires-python = ">=3.11"
+license = "MIT"
+readme = "README.md"
+keywords = ["ai", "scraping", "middleware", "asgi", "security"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: AsyncIO",
+    "Intended Audience :: Developers",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Middleware",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "starlette>=0.27",
+    "aiosqlite>=0.20",
+    "structlog>=24.0",
+    "tomli>=2.0; python_version < '3.12'",
+]
+
+[project.optional-dependencies]
+llm = [
+    "litellm>=1.40",
+    "httpx>=0.27",
+]
+demo = [
+    "fastapi[standard]>=0.115",
+    "uvicorn[standard]>=0.30",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.25",
+    "mypy>=1.10",
+    "httpx>=0.27",
+]
+
+[project.scripts]
+changeling-demo = "changeling.demo:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["changeling*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.mypy]
+strict = true
+python_version = "3.11"

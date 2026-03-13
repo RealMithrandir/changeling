@@ -4,7 +4,7 @@
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-<!-- [![CI](https://github.com/OWNER/changeling/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/changeling/actions/workflows/ci.yml) -->
+<!-- [![CI](https://github.com/RealMithrandir/changeling/actions/workflows/ci.yml/badge.svg)](https://github.com/RealMithrandir/changeling/actions/workflows/ci.yml) -->
 
 Drop-in ASGI middleware that identifies AI scrapers and serves them plausible but factually corrupted data. Prices shift. Dates drift. Statistics warp. Every response is `200 OK`. Every response is wrong.
 
@@ -146,6 +146,36 @@ python scripts/simulate_attack.py
 ```
 
 This sends requests as a normal browser (clean data), as GPTBot (mutated data), follows the Foxfire trap, and prints a side-by-side price comparison showing the corruption.
+
+## Development
+
+Clone the repo and install in editable mode with dev dependencies:
+
+```bash
+git clone https://github.com/RealMithrandir/changeling.git
+cd changeling
+python -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev,demo]"
+```
+
+Run the test suite:
+
+```bash
+pytest
+```
+
+Type checking:
+
+```bash
+mypy --strict changeling/
+```
+
+Launch the demo server locally:
+
+```bash
+changeling-demo --seed-db
+```
 
 ## Optional extras
 
